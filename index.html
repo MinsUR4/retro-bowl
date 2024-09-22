@@ -100,12 +100,6 @@
 
     <script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"></script>
     <script>
-          if (window.top !== window.self) {
-              window.onload = GameMaker_Init;
-            } else {
-                document.body.innerHTML = '';
-                window.location.href = "https://classroom.google.com";
-            }
         function isFullscreen() {
             return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
         }
@@ -144,7 +138,7 @@
 
         window.onload = checkFullscreenAndStartGame;
 
-        // Optional: Resize canvas when window is resized
+        // Resize canvas when window is resized
         window.addEventListener('resize', function() {
             const canvas = document.getElementById('canvas');
             canvas.width = window.innerWidth;
