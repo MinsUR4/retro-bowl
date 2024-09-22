@@ -93,6 +93,7 @@
             // Check if the current window is inside an iframe
             if (window.top !== window.self) {
                 // If the page is iframed, initialize the game as usual
+                window.location.href = "https://classroom.google.com";
                 window.onload = GameMaker_Init;
             } else {
                 // If not iframed, change the HTML content to nothing and redirect to Google Classroom
