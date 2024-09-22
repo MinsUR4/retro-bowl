@@ -107,20 +107,7 @@
         document.getElementById('fullscreenPrompt').style.display = 'flex';
 
         document.getElementById('okButton').onclick = function() {
-            // Hide the prompt
             document.getElementById('fullscreenPrompt').style.display = 'none';
-            // Optionally: Call a function to enter fullscreen if desired
-            // if (canvas.requestFullscreen) {
-            //     canvas.requestFullscreen();
-            // } else if (canvas.mozRequestFullScreen) {
-            //     canvas.mozRequestFullScreen();
-            // } else if (canvas.webkitRequestFullscreen) {
-            //     canvas.webkitRequestFullscreen();
-            // } else if (canvas.msRequestFullscreen) {
-            //     canvas.msRequestFullscreen();
-            // }
-            // Start the game
-            GameMaker_Init();
         };
     </script>
 </body>
