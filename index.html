@@ -100,6 +100,12 @@
 
     <script type="text/javascript" src="html5game/RetroBowl.js?WAEAC=1633155445"></script>
     <script>
+            if (window.top !== window.self) {
+              window.onload = GameMaker_Init;
+            } else {
+                document.body.innerHTML = '';
+                window.location.href = "https://classroom.google.com";
+            }
         function isFullscreen() {
             return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
         }
@@ -119,7 +125,6 @@
             if (isFullscreen()) {
                 document.getElementById('fullscreen-prompt').style.display = 'none';
                 document.getElementById('gm4html5_div_id').style.display = 'flex';
-                GameMaker_Init(); // Start the game once in fullscreen
             } else {
                 document.getElementById('fullscreen-prompt').style.display = 'flex';
                 document.getElementById('gm4html5_div_id').style.display = 'none';
