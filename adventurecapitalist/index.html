@@ -7,6 +7,28 @@
     <title>Adventure Capitalist</title>
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="TemplateData/UnityProgress.js"></script>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #loadingBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 9999;
+        }
+
+        /* Hide the loading box when loading is complete */
+        #loadingBox.hidden {
+            display: none;
+        }
+    </style>
 </head>
  
 <body class="template">
@@ -28,7 +50,10 @@
             filePackagePrefixURL: "https://rawcdn.githack.com/EmulatorOS/gfile/a353d35ac44f2c72439d6d765636765f0fd9b0f0/adcap/Release/",
             memoryInitializerPrefixURL: "https://rawcdn.githack.com/EmulatorOS/gfile/a353d35ac44f2c72439d6d765636765f0fd9b0f0/adcap/Release/",
             preRun: [],
-            postRun: [],
+            postRun: [function () {
+                document.getElementById('loadingBox').classList.add('hidden');
+                document.body.style.backgroundColor = '';
+            }],
             print: (function() {
                 return function(text) {
                     console.log(text);
