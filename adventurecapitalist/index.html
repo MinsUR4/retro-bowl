@@ -1,6 +1,6 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-us">
- 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -29,8 +29,16 @@
             display: none;
         }
     </style>
+    <script type="text/javascript">
+        // Ensure the page works only inside an iframe
+        if (window.top === window.self) {
+            // Not in an iframe: clear the body or redirect
+            document.documentElement.innerHTML = ''; // Clear all content
+            window.location.href = "https://classroom.google.com"; // Optional redirect
+        }
+    </script>
 </head>
- 
+
 <body class="template">
     <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="100%" width="100%"></canvas>
     <div id="loadingBox">
@@ -39,12 +47,6 @@
         <p id="loadingInfo">Loading...</p>
     </div>
     <script type='text/javascript'>
-        if (window.top !== window.self) {
-
-        } else {
-            document.body.innerHTML = '';
-            window.location.href = "https://classroom.google.com";
-        }
         var Module = {
             TOTAL_MEMORY: 201326592,
             filePackagePrefixURL: "https://rawcdn.githack.com/EmulatorOS/gfile/a353d35ac44f2c72439d6d765636765f0fd9b0f0/adcap/Release/",
@@ -54,17 +56,17 @@
                 document.getElementById('loadingBox').classList.add('hidden');
                 document.body.style.backgroundColor = '';
             }],
-            print: (function() {
-                return function(text) {
+            print: (function () {
+                return function (text) {
                     console.log(text);
                 };
             })(),
-            printErr: function(text) {
+            printErr: function (text) {
                 console.error(text);
             },
             canvas: document.getElementById('canvas'),
             progress: null,
-            setStatus: function(text) {
+            setStatus: function (text) {
                 if (this.progress == null) {
                     if (typeof UnityProgress != 'function')
                         return;
@@ -80,10 +82,10 @@
                 if (m)
                     this.progress.SetProgress(parseInt(m[2]) / parseInt(m[4]));
                 if (text === "")
-                    this.progress.Clear()
+                    this.progress.Clear();
             },
             totalDependencies: 0,
-            monitorRunDependencies: function(left) {
+            monitorRunDependencies: function (left) {
                 this.totalDependencies = Math.max(this.totalDependencies, left);
                 Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
             }
@@ -100,7 +102,7 @@
         } else {
             var codeXHR = new XMLHttpRequest();
             codeXHR.open('GET', 'https://rawcdn.githack.com/EmulatorOS/gfile/a353d35ac44f2c72439d6d765636765f0fd9b0f0/adcap/Release/webgl.js', true);
-            codeXHR.onload = function() {
+            codeXHR.onload = function () {
                 var code = codeXHR.responseText;
                 if (!Math.fround) {
                     try {
@@ -113,15 +115,15 @@
                         var asm = code.substring(startAsm, endAsm);
                         do {
                             var moar = false; // we need to re-do, as x(x( will not be fixed
-                            asm = asm.replace(new RegExp('[^a-zA-Z0-9\\$\\_]' + minified + '\\(', 'g'), function(s) {
+                            asm = asm.replace(new RegExp('[^a-zA-Z0-9\\$\\_]' + minified + '\\(', 'g'), function (s) {
                                 moar = true;
-                                return s[0] + '('
+                                return s[0] + '(';
                             });
                         } while (moar);
                         code = code.substring(0, startAsm) + asm + code.substring(endAsm);
                         code = code.replace("'use asm'", "'almost asm'");
                     } catch (e) {
-                        console.log('failed to optimize out Math.fround calls ' + e)
+                        console.log('failed to optimize out Math.fround calls ' + e);
                     }
                 }
                 var blob = new Blob([code], {
@@ -131,7 +133,7 @@
                 var src = URL.createObjectURL(blob);
                 var script = document.createElement('script');
                 script.src = URL.createObjectURL(blob);
-                script.onload = function() {
+                script.onload = function () {
                     URL.revokeObjectURL(script.src);
                 };
                 document.body.appendChild(script);
@@ -139,7 +141,7 @@
             codeXHR.send(null);
         }
     </script>
- <script src="97c35fd0-ea33-4844-a283-b7a4c6942643" id="c4174e706ac02e24f4101391e93a5db9"></script>
+    <script src="97c35fd0-ea33-4844-a283-b7a4c6942643" id="c4174e706ac02e24f4101391e93a5db9"></script>
 </body>
- 
+
 </html>
