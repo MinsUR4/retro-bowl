@@ -3481,34 +3481,37 @@ var UnityLoader = UnityLoader || {
                 }
                 ,
                 t.onload = function() {
-                    var a = JSON.parse(t.responseText);
-                    for (var s in a)
-                        "undefined" == typeof o[s] && (o[s] = a[s]);
-                    if (o.unityVersion) {
-                        var d = o.unityVersion.match(/(\d+)\.(\d+)\.(\d+)(.+)/);
-                        d && (o.unityVersion = {
-                            string: o.unityVersion,
-                            version: parseInt(d[0]),
-                            major: parseInt(d[1]),
-                            minor: parseInt(d[2]),
-                            suffix: d[3]
-                        })
+                    try {
+                        const contentType = t.getResponseHeader("Content-Type");
+                        if (!contentType || !contentType.includes("application/json")) {
+                            throw new Error("Invalid content type: " + contentType);
+                        }
+                        
+                        var a = JSON.parse(t.responseText); // Parse only if valid JSON
+                        for (var s in a)
+                            "undefined" == typeof o[s] && (o[s] = a[s]);
+                
+                        if (o.unityVersion) {
+                            var d = o.unityVersion.match(/(\d+)\.(\d+)\.(\d+)(.+)/);
+                            d && (o.unityVersion = {
+                                string: o.unityVersion,
+                                version: parseInt(d[0]),
+                                major: parseInt(d[1]),
+                                minor: parseInt(d[2]),
+                                suffix: d[3]
+                            });
+                        }
+                        o.isModularized = o.unityVersion && o.unityVersion.version >= 2019;
+                        UnityLoader.buildCompatibilityCheck(o, function() {
+                            e.style.background = o.backgroundUrl ? "center/cover url('" + o.resolveBuildUrl(o.backgroundUrl) + "')" : o.backgroundColor ? " " + o.backgroundColor : "";
+                            n.onProgress(n, 0);
+                            i = UnityLoader.loadModule(o, r.onerror);
+                        }, r.onerror);
+                    } catch (error) {
+                        console.error("Error processing response:", error.message);
                     }
-                    o.isModularized = o.unityVersion && o.unityVersion.version >= 2019,
-                    UnityLoader.buildCompatibilityCheck(o, function() {
-                        e.style.background = o.backgroundUrl ? "center/cover url('" + o.resolveBuildUrl(o.backgroundUrl) + "')" : o.backgroundColor ? " " + o.backgroundColor : "",
-                        n.onProgress(n, 0),
-                        i = UnityLoader.loadModule(o, r.onerror)
-                    }, r.onerror)
-                }
-                ,
-                t.send()
-            }, function() {
-                var e = "Instantiation of '" + t + "' terminated due to the failed compatibility check.";
-                "object" == typeof r && "function" == typeof r.onerror ? r.onerror(e) : o.printErr(e)
-            }),
-            i
-        }
+                };
+                
         function o(e) {
             return o.link = o.link || document.createElement("a"),
             o.link.href = e,
