@@ -10,58 +10,56 @@
   <meta http-equiv="pragma" content="no-cache" />
   <title>Retro Bowl College</title>
   <style>
-    canvas {
-      image-rendering: pixelated;
-      -webkit-interpolation-mode: nearest-neighbor;
-      -ms-touch-action: none;
-      touch-action: none;
-      margin: 0px;
-      padding: 0px;
-      border: 0px;
-    }
+      html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
 
-    :-webkit-full-screen #canvas {
-      width: 100%;
-      height: 100%;
-    }
+  #gm4html5_div_id {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-    :-webkit-full-screen {
-      width: 100%;
-      height: 100%;
-    }
+  canvas {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    image-rendering: pixelated;
+    -webkit-touch-callout: none;
+    -ms-touch-action: none;
+    touch-action: none;
+  }
 
-    div.gm4html5_div_class {
-      margin: 0px;
-      padding: 0px;
-      border: 0px;
-    }
+  :-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+  }
 
-    div.gm4html5_login {
-      padding: 20px;
-      position: absolute;
-      border: solid 2px #000000;
-      background-color: #404040;
-      color: #00ff00;
-      border-radius: 15px;
-      box-shadow: #101010 20px 20px 40px;
-    }
+  :-moz-full-screen {
+    width: 100%;
+    height: 100%;
+  }
 
-    div.gm4html5_cancel_button {
-      float: right;
-    }
+  :-ms-fullscreen {
+    width: 100%;
+    height: 100%;
+  }
 
-    div.gm4html5_login_button {
-      float: left;
-    }
-
-    div.gm4html5_login_header {
-      text-align: center;
-    }
-
-    :-webkit-full-screen {
-      width: 100%;
-      height: 100%;
-    }
+  :fullscreen {
+    width: 100%;
+    height: 100%;
+  }
   </style>
 
 </head>
