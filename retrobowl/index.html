@@ -91,9 +91,6 @@
 		<script type="text/javascript" src="html5game/RetroBowl.js"></script>
 
 		<script>
-			const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
         // Resize canvas to fill the screen
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -102,7 +99,7 @@
 
         // Initialize canvas size and adjust on resize
         resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener( 'resize', resizeCanvas);
 
         // Full-screen toggle
         document.addEventListener('keydown', (event) => {
